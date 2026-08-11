@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ALBAIK PANCAKE | Pancakes, Crepes &amp; Waffles</title>
+<meta name="description" content="Order delicious pancakes, crepes, waffles and drinks from ALBAIK PANCAKE in Haret Saida, Lebanon.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="ALBAIK PANCAKE | Pancakes, Crepes &amp; Waffles">
+<meta property="og:description" content="Order delicious pancakes, crepes, waffles and drinks from ALBAIK PANCAKE in Haret Saida, Lebanon.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta name="theme-color" content="#3B1A14">
+
+<link rel="icon" type="image/png" href="images/Albaik.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;600;700;800&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#top" class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <img src="images/Albaik.png" alt="" class="brand-logo">
+      </span>
+      <span class="brand-text">ALBAIK<em>PANCAKE</em></span>
+    </a>
+
+    <div class="header-actions">
+      <button class="lang-toggle-btn" id="langToggleBtn" aria-label="Switch language">
+        🌐 <span id="langBtnText">العربية</span>
+      </button>
+
+      <button class="cart-icon-btn" id="headerCartBtn" aria-label="Open cart">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1.5" fill="currentColor" stroke="none"/>
+          <circle cx="19" cy="21" r="1.5" fill="currentColor" stroke="none"/>
+          <path d="M2 3h2l2.6 12.6a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L21 7H6"/>
+        </svg>
+        <span class="cart-count-badge empty" id="headerCartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow" lang="ar" dir="rtl">أكل الحلو عند البيك</p>
+      <h1 class="hero-title">ALBAIK<br><span>PANCAKE</span></h1>
+      <p class="hero-tagline">Pancakes &bull; Crepes &bull; Waffles &bull; Drinks</p>
+      <button class="btn btn-primary btn-lg" id="orderNowBtn" data-i18n="orderNow">Order Now</button>
+    </div>
+  </section>
+
+  <!-- ================= MENU ================= -->
+  <section class="menu-section" id="menu">
+    <h2 class="section-title" data-i18n="ourMenu">Our Menu</h2>
+
+    <nav class="category-nav" id="categoryNav" aria-label="Menu categories">
+      <!-- populated by JS -->
+    </nav>
+
+    <div class="product-grid" id="productGrid">
+      <!-- populated by JS -->
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= STICKY CART BAR (mobile) ================= -->
+<button class="sticky-cart-bar" id="stickyCartBar" hidden>
+  <span class="sticky-cart-icon">🛒</span>
+  <span class="sticky-cart-text">
+    <strong id="stickyCartItems">0 ITEMS</strong>
+    <small id="stickyCartTotal">0 LBP</small>
+  </span>
+  <span class="sticky-cart-arrow">›</span>
+</button>
+
+<!-- ================= CART DRAWER ================= -->
+<div class="overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" role="dialog" aria-modal="true" id="cartDrawer" aria-label="Your order">
+  <div class="drawer-header">
+    <h3 data-i18n="yourOrder">Your Order</h3>
+    <button class="icon-btn" id="closeCartBtn" aria-label="Close cart">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <!-- populated by JS -->
+  </div>
+  <div class="cart-footer" id="cartFooter">
+    <div class="cart-total-row">
+      <span data-i18n="total">Total</span>
+      <span id="cartTotalPrice">0 LBP</span>
+    </div>
+    <button class="btn btn-primary btn-block" id="checkoutBtn" data-i18n="checkout">Checkout</button>
+  </div>
+</aside>
+
+<!-- ================= CHECKOUT MODAL ================= -->
+<div class="overlay" id="checkoutOverlay"></div>
+<div class="modal" id="checkoutModal" role="dialog" aria-modal="true" aria-label="Checkout">
+  <div class="modal-header">
+    <button class="icon-btn" id="checkoutBackBtn" aria-label="Back to cart">←</button>
+    <h3 data-i18n="deliveryDetails">Delivery Details</h3>
+    <button class="icon-btn" id="closeCheckoutBtn" aria-label="Close">✕</button>
+  </div>
+  <form class="checkout-form" id="checkoutForm">
+    <label class="field">
+      <span class="field-label" data-i18n="fullName">Full Name</span>
+      <input type="text" id="customerName" name="customerName" placeholder="e.g. Albaik pancake" autocomplete="name" required>
+      <span class="field-error" id="nameError"></span>
+    </label>
+
+    <label class="field">
+      <span class="field-label" data-i18n="phone">Phone Number</span>
+      <input type="tel" id="customerPhone" name="customerPhone" placeholder="e.g. 78 123 456" autocomplete="tel" required>
+      <span class="field-error" id="phoneError"></span>
+    </label>
+
+    <div class="field">
+      <span class="field-label" data-i18n="deliveryLocation">Delivery Location</span>
+      <button type="button" class="btn btn-secondary btn-block" id="useLocationBtn" data-i18n="useLocation">
+        📍 Use My Current Location
+      </button>
+      <p class="location-status" id="locationStatus"></p>
+      <p class="field-or" data-i18n="or">or</p>
+      <input type="text" id="customerAddress" name="customerAddress" placeholder="Enter address manually" autocomplete="street-address">
+      <span class="field-error" id="addressError"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block btn-lg" id="reviewOrderBtn" data-i18n="reviewOrder">Review Order</button>
+  </form>
+</div>
+
+<!-- ================= TOPPINGS MODAL ================= -->
+<div class="overlay" id="toppingsOverlay"></div>
+<div class="modal" id="toppingsModal" role="dialog" aria-modal="true" aria-label="Choose toppings">
+  <div class="modal-header">
+    <h3 data-i18n="addToppings">Add Toppings</h3>
+    <button class="icon-btn" id="closeToppingsBtn" aria-label="Close">✕</button>
+  </div>
+  <div class="toppings-body">
+    <p class="toppings-item-name" id="toppingsItemName"></p>
+    <p class="toppings-hint" data-i18n="toppingsHint">Optional — pick as many as you like</p>
+    <div class="toppings-list" id="toppingsList">
+      <!-- populated by JS -->
+    </div>
+  </div>
+  <div class="toppings-footer">
+    <div class="toppings-total-row">
+      <span data-i18n="total">Total</span>
+      <span id="toppingsTotal">0 LBP</span>
+    </div>
+    <div class="toppings-actions">
+      <div class="qty-control">
+        <button class="qty-btn" id="toppingsQtyDec" aria-label="Decrease quantity">−</button>
+        <span class="qty-value" id="toppingsQtyValue">1</span>
+        <button class="qty-btn" id="toppingsQtyInc" aria-label="Increase quantity">+</button>
+      </div>
+      <button class="btn btn-primary btn-block" id="toppingsAddBtn" data-i18n="addToOrder">Add to Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CONFIRMATION MODAL ================= -->
+<div class="overlay" id="confirmOverlay"></div>
+<div class="modal" id="confirmModal" role="dialog" aria-modal="true" aria-label="Confirm your order">
+  <div class="modal-header">
+    <button class="icon-btn" id="confirmBackBtn" aria-label="Edit order">←</button>
+    <h3 data-i18n="confirmTitle">Check Your Order</h3>
+    <button class="icon-btn" id="closeConfirmBtn" aria-label="Close">✕</button>
+  </div>
+  <div class="confirm-body" id="confirmBody">
+    <!-- populated by JS -->
+  </div>
+  <div class="confirm-footer">
+    <button class="btn btn-secondary btn-block" id="editOrderBtn" data-i18n="editOrder">← Edit Order</button>
+    <button class="btn btn-whatsapp btn-block btn-lg" id="sendWhatsAppBtn">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.5.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.3 0-.5s-.6-1.5-.9-2.1c-.2-.5-.5-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2.2 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5-1.3c1.4.8 3.1 1.2 4.9 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.1c-1.6 0-3.2-.4-4.6-1.3l-.3-.2-3.1.8.8-3-.2-.3C3.8 14.6 3.3 13 3.3 12c0-4.8 3.9-8.7 8.7-8.7s8.7 3.9 8.7 8.7-3.9 8.7-8.7 8.7z"/></svg>
+      <span data-i18n="sendWhatsApp">Send Order on WhatsApp</span>
+    </button>
+  </div>
+</div>
+
+<!-- ================= TOAST ================= -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="footer-mark">
+    <img src="images/Albaik.png" alt="" class="brand-logo">
+  </div>
+  <h4>ALBAIK PANCAKE</h4>
+  <p>Pancakes &bull; Crepes &bull; Waffles</p>
+  <p>📍 <span data-i18n="location">Haret Saida, Lebanon</span></p>
+  <p>📞 78 755 818</p>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>
